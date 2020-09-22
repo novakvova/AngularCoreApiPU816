@@ -6,17 +6,22 @@ import { AppComponent } from './app.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { UsersComponent } from './users/users.component';
 import { PostsComponent } from './posts/posts.component';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
   declarations: [
     AppComponent,
     SideBarComponent,
     UsersComponent,
-    PostsComponent
+    PostsComponent,
+    // ,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatSliderModule
+    //BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
