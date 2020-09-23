@@ -7,7 +7,16 @@ import { SideBarComponent } from './side-bar/side-bar.component';
 import { UsersComponent } from './users/users.component';
 import { PostsComponent } from './posts/posts.component';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSliderModule } from '@angular/material/slider';
+// import { MatSliderModule } from '@angular/material/slider';
+// import { MatToolbarModule  } from  '@angular/material/toolbar';
+// import { MatIconModule } from  '@angular/material/icon';
+// import { MatSidenavModule } from  '@angular/material/sidenav';
+// import { MatListModule } from  '@angular/material/list';
+// import { MatButtonModule } from  '@angular/material/button';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {InputMaskModule} from 'primeng/inputmask';
+import {DropdownModule} from 'primeng/dropdown';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,9 +28,16 @@ import { MatSliderModule } from '@angular/material/slider';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
-    MatSliderModule
-    //BrowserAnimationsModule
+    InputMaskModule,
+    DropdownModule,
+    FormsModule
+    // MatToolbarModule,
+    // MatSidenavModule,
+    // MatListModule,
+    // MatButtonModule,
+    // MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
