@@ -17,6 +17,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {InputMaskModule} from 'primeng/inputmask';
 import {DropdownModule} from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { FormsModule } from '@angular/forms';
     SideBarComponent,
     UsersComponent,
     PostsComponent,
+    LoginComponent,
     // ,
   ],
   imports: [
@@ -32,7 +35,8 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     InputMaskModule,
     DropdownModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
     // MatToolbarModule,
     // MatSidenavModule,
     // MatListModule,
