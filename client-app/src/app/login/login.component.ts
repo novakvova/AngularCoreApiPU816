@@ -15,7 +15,7 @@ interface LoginModel {
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  isSubmitted = false;
+  //isSubmitted = false;
   model: LoginModel;
 
   constructor(private formBuilder: FormBuilder) { }
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
       console.log("Form not valid");
       return;
     }
-    this.isSubmitted = true;
+    //this.isSubmitted = true;
 
     this.model = {
       email: this.loginForm.controls.email.value,
