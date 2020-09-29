@@ -18,7 +18,12 @@ import {InputMaskModule} from 'primeng/inputmask';
 import {DropdownModule} from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+
 import { LoginComponent } from './login/login.component';
+import {ApiAccountService} from './core/api.account.service';
+
+
 
 @NgModule({
   declarations: [
@@ -36,14 +41,15 @@ import { LoginComponent } from './login/login.component';
     InputMaskModule,
     DropdownModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
     // MatToolbarModule,
     // MatSidenavModule,
     // MatListModule,
     // MatButtonModule,
     // MatIconModule
   ],
-  providers: [],
+  providers: [ApiAccountService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
