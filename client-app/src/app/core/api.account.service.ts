@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Observable} from 'rxjs/index';
-import {ApiResponse} from '../model/api.response';
+import {ApiLoginResponse} from '../model/api.login.response';
 import {LoginModel} from '../model/api.login';
 
 @Injectable()
@@ -11,7 +11,7 @@ export class ApiAccountService {
 
   baseUrl = 'http://localhost:5000/api/account/';
 
-  login(model: LoginModel): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(this.baseUrl + 'login', model);
+  login(model: LoginModel): Observable<ApiLoginResponse> {
+    return this.http.post<ApiLoginResponse>(this.baseUrl + 'login', model);
   }
 }

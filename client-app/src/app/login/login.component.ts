@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
 
    this.apiService.login(this.model).subscribe(
       data => {
-        console.log("----kapusta----", data.result);
+        console.log("----kapusta----", data.token);
         // if (data.status === 200) {
          // console.log('-----result server by login----', data.result.token);
           //window.localStorage.setItem('token', data.result.token);
