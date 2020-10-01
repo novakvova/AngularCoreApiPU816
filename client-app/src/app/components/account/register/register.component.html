@@ -1,0 +1,50 @@
+<div class="row">
+
+  <div class="col-md-6 login-container">
+    <h2 style="margin: auto">Реєстрація </h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+      <div *ngIf="invalidError" class="alert alert-danger" role="alert">
+        {{invalidError}}!
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="text" class="form-control" formControlName="email" id="email" autocomplete="off">
+        <div class="error" *ngIf="registerForm.controls['email'].hasError('required') && registerForm.controls['email'].touched">Email is required</div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Телефон:</label>
+        <input type="text" class="form-control" formControlName="phone" id="phone" autocomplete="off">
+        <div class="error" *ngIf="registerForm.controls['phone'].hasError('required') && registerForm.controls['phone'].touched">Phone is required</div>
+      </div>
+
+      <div class="form-group">
+
+        <span style="color:red;" *ngIf="message">{{message}}</span>
+        <label style="cursor: pointer;" for="photo">
+          <div *ngIf="imgURL; else defaultImage">
+            <img [src]="imgURL" height="200">
+          </div>
+
+          <ng-template #defaultImage>
+            <img src="https://icons8.com/iconizer/files/Bunch_of_Bluish_Icons/orig/upload.png" width="200" />
+          </ng-template>
+
+        </label>
+        <input style="display: none;" #fileSelect id="photo" type="file"
+              accept='image/*' (change)="preview(fileSelect.files)" />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" formControlName="password" id="password" autocomplete="off">
+        <div class="error" *ngIf="registerForm.controls['password'].hasError('required') && registerForm.controls['password'].touched">Password is required</div>
+      </div>
+
+      <button class="btn btn-success" [disabled]="registerForm.invalid">Реєструватися</button>
+
+    </form>
+  </div>
+</div>

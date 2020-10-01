@@ -20,8 +20,9 @@ import { FormsModule } from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './components/account/login/login.component';
 import {ApiAccountService} from './core/api.account.service';
+import { RegisterComponent } from './components/account/register/register.component';
 
 
 
@@ -32,6 +33,7 @@ import {ApiAccountService} from './core/api.account.service';
     UsersComponent,
     PostsComponent,
     LoginComponent,
+    RegisterComponent,
     // ,
   ],
   imports: [
