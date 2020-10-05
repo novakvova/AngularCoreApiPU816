@@ -127,7 +127,7 @@ namespace FastFood.WebApi
             }
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseSwagger();
             app.UseSwaggerUI(c =>

@@ -23,6 +23,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { LoginComponent } from './components/account/login/login.component';
 import {ApiAccountService} from './core/api.account.service';
 import { RegisterComponent } from './components/account/register/register.component';
+import { TokenInterceptor } from './core/interceptor';
 
 
 
@@ -51,7 +52,12 @@ import { RegisterComponent } from './components/account/register/register.compon
     // MatButtonModule,
     // MatIconModule
   ],
-  providers: [ApiAccountService],
+  providers: [ApiAccountService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi : true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
