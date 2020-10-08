@@ -33,5 +33,30 @@ namespace FastFood.WebApi.Controllers
             }).ToListAsync();
             return Ok(users);
         }
+
+        [HttpDelete("{userId}")]
+        public async Task<IActionResult> Delete(int? userId)
+        {
+            DbUser user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null) return BadRequest("User not exist");
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(DbUser newUser)
+        {
+            DbUser user = await _context.Users.FirstOrDefaultAsync(u => u.Id == newUser.Id);
+
+            if (user == null) return BadRequest("User not exist");
+
+            _context.Users.Update(newUser); // TODO
+            
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }

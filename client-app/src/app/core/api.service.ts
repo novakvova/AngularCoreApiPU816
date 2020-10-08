@@ -11,4 +11,7 @@ export class ApiService {
   getUsers() {
     return this.http.get<User[]>(this.baseUrl);
   }
+  deleteUser(userId: number){
+    return this.http.delete(this.baseUrl +'/'+ userId)
+  }
 }

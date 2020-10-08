@@ -1,3 +1,4 @@
+import { ModalService } from './core/modal.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -25,7 +26,7 @@ import { ApiAccountService } from './core/api.account.service';
 import { ApiService } from './core/api.service';
 import { RegisterComponent } from './components/account/register/register.component';
 import { TokenInterceptor } from './core/interceptor';
-
+import { ModalComponent } from './components/common/modal.component'
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { TokenInterceptor } from './core/interceptor';
     PostsComponent,
     LoginComponent,
     RegisterComponent,
+    ModalComponent
     // ,
   ],
   imports: [
@@ -53,7 +55,7 @@ import { TokenInterceptor } from './core/interceptor';
     // MatButtonModule,
     // MatIconModule
   ],
-  providers: [ApiAccountService, ApiService,
+  providers: [ApiAccountService, ApiService, ModalService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

@@ -61,7 +61,7 @@ export class RegisterComponent implements OnInit {
     this.http.post<ApiLoginResponse>( 'http://localhost:5000/api/account/register',
           this.model).subscribe(
             data => {
-              console.log("----kapusta----", data.token);
+              console.log("----kapusta----");
                 this.router.navigate(['/']);
               // }
            },
