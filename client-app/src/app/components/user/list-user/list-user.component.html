@@ -9,6 +9,7 @@
       <th>Пошта</th>
       <th>Підтверження</th>
       <th>Вік</th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
@@ -20,7 +21,7 @@
       <td>{{user.email}}</td>
       <td>{{user.emailConfirmed}}</td>
       <td>{{user.age}}</td>
-
+      <td><button (click)="edit(user.id)" class="btn btn-info">Змінити</button></td>
     </tr>
     </tbody>
   </table>

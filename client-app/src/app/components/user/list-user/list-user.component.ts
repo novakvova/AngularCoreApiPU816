@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService } from '../core/api.service';
-import { User } from '../model/user.model';
+import { ApiService } from '../../../core/api.service';
+import { User } from '../../../model/user.model';
+
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  selector: 'app-list-user',
+  templateUrl: './list-user.component.html',
+  styleUrls: ['./list-user.component.scss']
 })
-export class UsersComponent implements OnInit {
+export class ListUserComponent implements OnInit {
 
   users: User[];
 
@@ -25,6 +26,10 @@ export class UsersComponent implements OnInit {
                         //console.log("Users:", responce);
                         this.users = responce;
                       });
+  }
+
+  edit(id: number){
+    this.router.navigate(['user/edit', id]);
   }
 
 }

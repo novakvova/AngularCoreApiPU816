@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
-import { UsersComponent } from './users/users.component';
 import { PostsComponent } from './posts/posts.component';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { MatSliderModule } from '@angular/material/slider';
@@ -25,6 +24,9 @@ import { ApiAccountService } from './core/api.account.service';
 import { ApiService } from './core/api.service';
 import { RegisterComponent } from './components/account/register/register.component';
 import { TokenInterceptor } from './core/interceptor';
+import { AddUserComponent } from './components/user/add-user/add-user.component';
+import { EditUserComponent } from './components/user/edit-user/edit-user.component';
+import { ListUserComponent } from './components/user/list-user/list-user.component';
 
 
 
@@ -32,10 +34,12 @@ import { TokenInterceptor } from './core/interceptor';
   declarations: [
     AppComponent,
     SideBarComponent,
-    UsersComponent,
     PostsComponent,
     LoginComponent,
     RegisterComponent,
+    AddUserComponent,
+    EditUserComponent,
+    ListUserComponent,
     // ,
   ],
   imports: [
