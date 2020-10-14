@@ -10,7 +10,7 @@ namespace FastFood.WebApi.Entities
         public string Image { get; set; }
 
         [Range(0, 130, ErrorMessage = "Недопустимый год")]
-        public double Age { get; set; }
+        public int Age { get; set; }
 
         [StringLength(255)]
         public string Phone { get; set; }

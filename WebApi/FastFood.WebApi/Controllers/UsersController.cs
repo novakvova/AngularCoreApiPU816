@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FastFood.WebApi.Entities;
+using FastFood.WebApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,24 +23,54 @@ namespace FastFood.WebApi.Controllers
         [HttpGet("")]
         public async Task<IActionResult> GetAllUsers()
         {
-            var users = await _context.Users.Select(x => new
+            var users = await _context.Users.Select(x => new UserItemViewModel
             {
-                x.Id,
-                x.Email,
-                x.Age,
-                x.Image,
-                x.PhoneNumber,
-                x.EmailConfirmed
+                Id = x.Id,
+                Email = x.Email,
+                Age =  x.Age,
+                Image =  x.Image,
+                EmailConfirmed = x.EmailConfirmed
             }).ToListAsync();
             return Ok(users);
         }
-    
+
         //переглянути деталі про користувача
-
+        [HttpGet("details/{id}")]
+        public async Task<IActionResult> Details(int id)
+        {
+            var users = await _context.Users.Select(x => new UserDetailViewModel
+            {
+                Id = x.Id,
+                Email = x.Email,
+                Age = x.Age,
+                Image = x.Image,
+                Phone = x.PhoneNumber,
+                EmailConfirmed = x.EmailConfirmed
+            }).SingleOrDefaultAsync(x => x.Id == id);
+            return Ok(users);
+        }
         //Отимати інформацію про користувача, якого будемо міняти
+        [HttpGet("edit/{id}")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var users = await _context.Users.Select(x => new UserEditViewModel
+            {
+                Id = x.Id,
+                Age = x.Age,
+                Image = x.Image,
+                Phone = x.PhoneNumber
+            }).SingleOrDefaultAsync(x => x.Id == id);
+            return Ok(users);
+        }
+        //Зберегти дані про користувача
+        [HttpPut("save")]
+        public async Task<IActionResult> Save(UserEditViewModel model)
+        {
+            var user = await _context.Users
+                .SingleOrDefaultAsync(x => x.Id == model.Id);
 
-        //Зберегти змінені дані про користувача
-
+            return Ok(user);
+        }
         //видалити користувача
 
         //додати користувача
