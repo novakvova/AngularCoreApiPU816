@@ -20,6 +20,8 @@
         <div class="error" *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched">Password is required</div>
       </div>
 
+      <a class="nav-link" routerLink="/resetpassword">Відновити пароль</a>
+
       <button class="btn btn-success" [disabled]="loginForm.invalid">Login</button>
 
     </form>

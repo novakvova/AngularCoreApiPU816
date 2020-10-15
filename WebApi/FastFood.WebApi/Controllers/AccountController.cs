@@ -1,10 +1,13 @@
 ﻿using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using FastFood.WebApi.Entities;
+using FastFood.WebApi.Helpers;
 using FastFood.WebApi.Models;
 using FastFood.WebApi.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace FastFood.WebApi.Controllers
 {
@@ -16,16 +19,22 @@ namespace FastFood.WebApi.Controllers
         private readonly UserManager<DbUser> _userManager;
         private readonly SignInManager<DbUser> _signInManager;
         private readonly IJwtTokenService _IJwtTokenService;
+        private readonly IConfiguration _configuration;
+        private readonly IEmailSender _emailSender;
 
         public AccountController(EfContext context,
             UserManager<DbUser> userManager,
             SignInManager<DbUser> signInManager,
-            IJwtTokenService IJwtTokenService)
+            IJwtTokenService IJwtTokenService,
+            IEmailSender emailSender,
+            IConfiguration configuration)
         {
             _userManager = userManager;
             _context = context;
             _signInManager = signInManager;
             _IJwtTokenService = IJwtTokenService;
+            _emailSender = emailSender;
+            _configuration = configuration;
         }
         
         [HttpPost("login")]
@@ -88,5 +97,32 @@ namespace FastFood.WebApi.Controllers
 
             return Ok();
         }
+
+        [HttpPost("forgotPassword")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordModel forgotPasswordModel)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Bad Model");
+            var user = await _userManager.FindByEmailAsync(forgotPasswordModel.Email);
+            if (user == null)
+                return BadRequest("Not faound user");
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            var frontEndURL = _configuration.GetValue<string>("FrontEndURL");
+
+            var callbackUrl =
+                $"{frontEndURL}/resetpassword?userId={user.Id}&" +
+                $"code={WebUtility.UrlEncode(token)}";
+
+                //Url.Action(nameof(ResetPassword), "AccountController", new { token, email = user.Email }, Request.Scheme);
+            var message = new Message(new string[] { forgotPasswordModel.Email }, "Reset password token", 
+                $"Please reset password by clicking here: " +
+               $"<a href='{callbackUrl}'>link</a>");
+            _emailSender.SendEmail(message);
+
+            return Ok();
+        }
+
+
     }
 }

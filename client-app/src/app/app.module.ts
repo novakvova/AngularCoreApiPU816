@@ -27,6 +27,7 @@ import { TokenInterceptor } from './core/interceptor';
 import { AddUserComponent } from './components/user/add-user/add-user.component';
 import { EditUserComponent } from './components/user/edit-user/edit-user.component';
 import { ListUserComponent } from './components/user/list-user/list-user.component';
+import { ResetpasswordComponent } from './components/user/resetpassword/resetpassword.component';
 
 
 
@@ -40,6 +41,7 @@ import { ListUserComponent } from './components/user/list-user/list-user.compone
     AddUserComponent,
     EditUserComponent,
     ListUserComponent,
+    ResetpasswordComponent,
     // ,
   ],
   imports: [

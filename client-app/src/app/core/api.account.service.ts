@@ -14,4 +14,9 @@ export class ApiAccountService {
   login(model: LoginModel): Observable<ApiLoginResponse> {
     return this.http.post<ApiLoginResponse>(this.baseUrl + 'login', model);
   }
+
+  resetpassword(email: string): Observable<any> {
+    return this.http.post<any>(this.baseUrl + 'forgotPassword', {email: email});
+  }
+
 }

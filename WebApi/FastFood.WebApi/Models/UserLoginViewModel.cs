@@ -1,4 +1,6 @@
-﻿namespace FastFood.WebApi.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FastFood.WebApi.Models
 {
     public class UserLoginViewModel
     {
@@ -13,6 +15,16 @@
         public string ImageBase64 { get; set; }
         public string Password { get; set; }
     }
+
+    public class ForgotPasswordModel
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+    }
+
+
+
     /// <summary>
     /// Інформація про одного користувача
     /// </summary>

@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using FastFood.WebApi.Entities;
+using FastFood.WebApi.Helpers;
 using FastFood.WebApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -105,11 +106,14 @@ namespace FastFood.WebApi
                 }
 
             });
-            
-            
-            
-            
-            
+
+            var emailConfig = Configuration
+                .GetSection("EmailConfiguration")
+                .Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
+
+            services.AddScoped<IEmailSender, EmailSender>();
+
             services.AddControllers();
 
         }
