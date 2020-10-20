@@ -34,8 +34,12 @@ namespace FastFood.WebApi
         {
             services.AddCors();
             // Add framework services.
-            services.AddDbContext<EfContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<EfContext>(options =>
+            //    options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<EfContext>(opt =>
+                opt.UseSqlServer(Configuration
+                    .GetConnectionString("DefaultConnection")));
 
             //services.AddIdentity<DbUser, DbRole>()
             //    .AddEntityFrameworkStores<EFContext>();
