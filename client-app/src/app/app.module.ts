@@ -28,6 +28,7 @@ import { AddUserComponent } from './components/user/add-user/add-user.component'
 import { EditUserComponent } from './components/user/edit-user/edit-user.component';
 import { ListUserComponent } from './components/user/list-user/list-user.component';
 import { ResetpasswordComponent } from './components/user/resetpassword/resetpassword.component';
+import { AuthGuard } from './core/auth.guard';
 
 
 
@@ -60,6 +61,7 @@ import { ResetpasswordComponent } from './components/user/resetpassword/resetpas
     // MatIconModule
   ],
   providers: [ApiAccountService, ApiService,
+    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

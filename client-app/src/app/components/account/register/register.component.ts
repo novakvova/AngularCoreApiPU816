@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import {RegisterModel} from '../../../model/api.login';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ApiLoginResponse } from 'src/app/model/api.login.response';
+import { Constants } from '../../../constants';
 
 @Component({
   selector: 'app-register',
@@ -58,10 +59,10 @@ export class RegisterComponent implements OnInit {
     //console.log("Register data: ", this.model);
     //baseUrl: String = 'http://localhost:5000/api/account/';
 
-    this.http.post<ApiLoginResponse>( 'http://localhost:5000/api/account/register',
+    this.http.post<ApiLoginResponse>(`${Constants.HOME_URL}/api/account/register`,
           this.model).subscribe(
             data => {
-              console.log("----kapusta----", data.token);
+              //console.log("----kapusta----", data.token);
                 this.router.navigate(['/']);
               // }
            },

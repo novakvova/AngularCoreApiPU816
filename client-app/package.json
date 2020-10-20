@@ -23,6 +23,7 @@
     "@angular/router": "~10.1.2",
     "@fortawesome/fontawesome-free": "^5.14.0",
     "bootstrap": "^4.5.2",
+    "jwt-decode": "^3.0.0",
     "primeicons": "^4.0.0",
     "primeng": "^10.0.0",
     "rxjs": "~6.6.0",
