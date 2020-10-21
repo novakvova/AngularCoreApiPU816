@@ -23,12 +23,13 @@ namespace FastFood.WebApi.Controllers
         [HttpGet("")]
         public async Task<IActionResult> GetAllUsers()
         {
+             var domain= $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
             var users = await _context.Users.Select(x => new UserItemViewModel
             {
                 Id = x.Id,
                 Email = x.Email,
                 Age =  x.Age,
-                Image =  x.Image,
+                Image =  $"{domain}/Files/{x.Image}",
                 EmailConfirmed = x.EmailConfirmed
             }).ToListAsync();
             return Ok(users);

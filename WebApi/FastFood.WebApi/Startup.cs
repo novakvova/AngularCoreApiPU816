@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -138,6 +139,17 @@ namespace FastFood.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+            string folder = Path.Combine(env.ContentRootPath, "Uploads");
+            if(!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(folder),
+                RequestPath = "/Files"
+            });
 
             app.UseRouting();
             app.UseAuthentication();

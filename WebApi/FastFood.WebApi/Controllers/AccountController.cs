@@ -1,10 +1,15 @@
-﻿using System.Linq;
+﻿using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using FastFood.WebApi.Entities;
 using FastFood.WebApi.Helpers;
 using FastFood.WebApi.Models;
 using FastFood.WebApi.Services;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -21,13 +26,15 @@ namespace FastFood.WebApi.Controllers
         private readonly IJwtTokenService _IJwtTokenService;
         private readonly IConfiguration _configuration;
         private readonly IEmailSender _emailSender;
+        private readonly IWebHostEnvironment _env;
 
         public AccountController(EfContext context,
             UserManager<DbUser> userManager,
             SignInManager<DbUser> signInManager,
             IJwtTokenService IJwtTokenService,
             IEmailSender emailSender,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IWebHostEnvironment env)
         {
             _userManager = userManager;
             _context = context;
@@ -35,6 +42,7 @@ namespace FastFood.WebApi.Controllers
             _IJwtTokenService = IJwtTokenService;
             _emailSender = emailSender;
             _configuration = configuration;
+            _env = env;
         }
         
         [HttpPost("login")]
@@ -78,11 +86,32 @@ namespace FastFood.WebApi.Controllers
                 return BadRequest("Bad Model");
             }
 
+            var base64 = model.ImageBase64;
+            if (base64.Contains(","))
+            {
+                base64 = base64.Split(',')[1];
+            }
+            var bmp = FromBase64StringToImage(base64);
+
+            var serverPath = _env.ContentRootPath; //Directory.GetCurrentDirectory(); //_env.WebRootPath;
+
+            var path = Path.Combine(serverPath, "Uploads"); //
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            var fileName = Path.GetRandomFileName() + ".jpg";
+
+            var filePathSave = Path.Combine(path, fileName);
+
+            bmp.Save(filePathSave, ImageFormat.Jpeg);
+
             var user = new DbUser
             {
                 Email = model.Email,
                 UserName = model.Email,
-                Image = "https://cdn.pixabay.com/photo/2017/07/28/23/34/fantasy-picture-2550222_960_720.jpg",
+                Image = fileName, //"https://cdn.pixabay.com/photo/2017/07/28/23/34/fantasy-picture-2550222_960_720.jpg",
                 Age = 30,
                 Phone = model.Phone,
                 Description = "PHP programmer"
@@ -97,6 +126,26 @@ namespace FastFood.WebApi.Controllers
 
             return Ok();
         }
+        private static Bitmap FromBase64StringToImage(string base64String)
+        {
+            byte[] byteBuffer = Convert.FromBase64String(base64String);
+            try
+            {
+                using (MemoryStream memoryStream = new MemoryStream(byteBuffer))
+                {
+                    memoryStream.Position = 0;
+                    using (Image imgReturn = Image.FromStream(memoryStream))
+                    {
+                        memoryStream.Close();
+                        byteBuffer = null;
+                        return new Bitmap(imgReturn);
+                    }
+                }
+            }
+            catch { return null; }
+
+        }
+
 
         [HttpPost("forgotPassword")]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordModel forgotPasswordModel)
